@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: SecureBank-API
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:securebank_db}
+    username: ${DB_USER:securebank}
+    password: ${DB_PASSWORD:securebank_pwd}
+  jpa:
+    hibernate:
+      ddl-auto: update # Use migration tool like Flyway in prod
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:892374982374987239487239847293847239847239847239847239847239847239847238947}
+      expiration: 3600000 # 1 hour
+    crypto:
+      secret-key: ${CRYPTO_SECRET:12345678901234567890123456789012} # 32 bytes for AES-256
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.securebank: INFO
+    org.springframework.security: DEBUG
